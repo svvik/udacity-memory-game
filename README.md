@@ -3,12 +3,12 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [External libraries](#externallibraries)
+* [External dependencies](#externaldependencies)
 
 ## Instructions
 
 TODO instructions here
 
-## External libraries
+## External dependencies
 
-TODO about external libraries 
+TODO about external libraries

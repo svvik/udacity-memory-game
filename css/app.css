@@ -17,7 +17,7 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #fff url(../img/geometry2.png); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
 
@@ -29,14 +29,12 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font: 300 2.25em "Open Sans", sans-serif;
 }
 
 /*
  * Styles for the deck of cards
  */
-
 .deck {
     width: 660px;
     min-height: 680px;
@@ -56,7 +54,7 @@ h1 {
     width: 125px;
     background: #2e3d49;
     font-size: 0;
-    color: #ffffff;
+    color: #fff;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -76,7 +74,7 @@ h1 {
 }
 
 .deck .card.error {
-    background: #FF6C9A;
+    background: #ff6c9a;
 }
 
 .deck .card.match {
@@ -88,11 +86,11 @@ h1 {
 /*
  * Styles for the Score Panel
  */
-
 .score-panel {
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
+    font-size: 1.25em;
 }
 
 .score-panel .stars {
@@ -112,14 +110,18 @@ h1 {
     cursor: pointer;
 }
 
-#dialog .dialog-stars {
+/*
+ * Styles for the dialog window
+ */
+.dialog .dialog-stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
+    font-size: 1.25em;
 }
 
-#dialog .dialog-stars li {
+.dialog .dialog-stars li {
     list-style: none;
     display: inline-block;
 }
