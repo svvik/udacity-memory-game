@@ -3,8 +3,8 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Rating rules](#rating)
-* [Specials](#rating)
+* [Rating rules](#ratingrules)
+* [Specials](#specials)
 * [External dependencies](#externaldependencies)
 
 ## Instructions
@@ -28,12 +28,12 @@ Each turn increments number of moves. Game ends once player opens all cards.
 ## Rating rules
 
 At the beginning of the game, 3 stars are assigned. Rating starts decrementing
-by 8th turn. It decrements by a half of the star each after each next 4 turns.  
+after each 8th step. 1 star is the minimum rating.  
 
 ## Specials
 
 Depending on browser version, best results may be stored in the local browser
-storage. 
+storage.
 
 ## External dependencies
 * [jQuery](https://jquery.com/)

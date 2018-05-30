@@ -1,8 +1,12 @@
 /*
- * @description initial threshold when stars star decrementing
+ * @description stars decrementing step
  */
-const INIT_THRESHOLD_MOVES_DEC = 8;
+const STAR_DECREMENT_STEP = 8;
 
+/*
+ * @description number of stars in the score
+ */
+const NUMBER_OF_STARS = 3;
 /*
  * @description definition of all possible card states
  */
@@ -89,7 +93,7 @@ function reset() {
     cardOpenIndex = -1;
     cardOpenElement = null;
     $('.stars').find('i')
-        .removeClass('fa-star fa-star-half-o fa-star-o')
+        .removeClass('fa-star fa-star-o')
         .addClass('fa-star');
 
     $('.moves').text(moves);
@@ -133,7 +137,7 @@ function initCards() {
  *     - list of cards to display
  */
 function initElements() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < NUMBER_OF_STARS; i++) {
         $('.stars').append($('<li></li>').append($('<i></i>').addClass('fa')));
     }
     for (let i = 0; i < 16; i++) {
@@ -160,7 +164,7 @@ function initDeck() {
  * @description function which is used to process 'onclick' events on the "grid"
  */
 const onClickFn = function onClick() {
-    if(!canClick) return;
+    if(!canClick || cardLeft === 0) return;
 
     if(timerInterval == null) {
       timerInterval = setInterval(function () {
@@ -211,7 +215,7 @@ const onClickFn = function onClick() {
     $('.moves').text(++moves);
     if (cardLeft === 0) {
         endGame();
-    } else if (moves >= INIT_THRESHOLD_MOVES_DEC && (moves - INIT_THRESHOLD_MOVES_DEC) % 4 === 0) {
+    } else if (moves > 0 && moves % STAR_DECREMENT_STEP === 0) {
         decrementStars();
     }
 
@@ -234,8 +238,6 @@ function endGame() {
         let $i = $('<i></i>').addClass('fa');
         if ($(this).hasClass('fa-star')) {
             $i.addClass('fa-star');
-        } else if ($(this).hasClass('fa-star-half-o')) {
-            $i.addClass('fa-star-half-o');
         } else if ($(this).hasClass('fa-star-o')) {
             $i.addClass('fa-star-o');
         }
@@ -279,15 +281,13 @@ function saveResults() {
  * @description function decrements star rating
  */
 function decrementStars() {
-    for (let i = 2; i > 0; i--) {
+    for (let i = NUMBER_OF_STARS-1; i > 0; i--) {
         let elem = $($('.stars').children().get(i)).find('i');
         if ($(elem).hasClass('fa-star-o')) {
             continue;
         }
         if ($(elem).hasClass('fa-star')) {
-            $(elem).removeClass('fa-star').addClass('fa-star-half-o');
-        } else {
-            $(elem).removeClass('fa-star-half-o').addClass('fa-star-o');
+            $(elem).removeClass('fa-star').addClass('fa-star-o');
         }
         break;
     }
