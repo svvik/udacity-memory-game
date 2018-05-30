@@ -59,6 +59,8 @@ let cardLeft = 16;
 let cards = null;
 let timerInterval = null;
 
+let canClick = true;
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -81,6 +83,7 @@ function reset() {
     initCards();
     moves = 0;
     secondsPassed = 0;
+    canClick = true;
 
     $('.time').text(secondsPassed);
 
@@ -162,16 +165,23 @@ function initDeck() {
  * @description function which is used to process 'onclick' events on the "grid"
  */
 const onClickFn = function onClick() {
+    if(!canClick) return;
+
     let wi = $('.card').index($(this));
     let currentCard = cards[wi];
     if (currentCard.cardState !== cardState.CLOSED) {
         return;
     }
+
+    canClick = false;
+
     if (cardOpenIndex === -1) {
         cardOpenIndex = wi;
         cardOpenElement = $(this);
         currentCard.cardState = cardState.OPEN;
-        $(this).addClass('open show').animateCss('flipInY');
+        $(this).addClass('open show').animateCss('flipInY', function () {
+            canClick = true;
+        });
         return;
     }
 
@@ -202,6 +212,10 @@ const onClickFn = function onClick() {
     } else if (moves >= INIT_THRESHOLD_MOVES_DEC && (moves - INIT_THRESHOLD_MOVES_DEC) % 4 === 0) {
         decrementStars();
     }
+
+    setTimeout(function () {
+        canClick = true;
+    }, 1250);
 };
 
 /*
@@ -263,18 +277,18 @@ function saveResults() {
  * @description function decrements star rating
  */
 function decrementStars() {
-    $($('.stars').children().get().reverse()).each(function () {
-        let elem = $(this).find('i');
+    for (let i = 2; i > 0; i--) {
+        let elem = $($('.stars').children().get(i)).find('i');
         if ($(elem).hasClass('fa-star-o')) {
-            return true;
+            continue;
         }
         if ($(elem).hasClass('fa-star')) {
             $(elem).removeClass('fa-star').addClass('fa-star-half-o');
         } else {
             $(elem).removeClass('fa-star-half-o').addClass('fa-star-o');
         }
-        return false;
-    });
+        break;
+    }
 }
 
 /*
