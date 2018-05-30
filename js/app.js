@@ -85,8 +85,6 @@ function reset() {
     secondsPassed = 0;
     canClick = true;
 
-    $('.time').text(secondsPassed);
-
     cardLeft = cards.length;
     cardOpenIndex = -1;
     cardOpenElement = null;
@@ -101,15 +99,12 @@ function reset() {
         $(this).find('i').addClass(cards[index].cardDesc.class);
     });
     $('.card').removeClass('open show match');
-    $('time').text(secondsPassed);
+    $('.time').text(secondsPassed);
 
     if (timerInterval != null) {
         clearInterval(timerInterval);
+        timerInterval = null;
     }
-    timerInterval = setInterval(function () {
-        secondsPassed++;
-        $('.time').text(secondsPassed);
-    }, 1000);
 }
 
 /*
@@ -166,6 +161,13 @@ function initDeck() {
  */
 const onClickFn = function onClick() {
     if(!canClick) return;
+
+    if(timerInterval == null) {
+      timerInterval = setInterval(function () {
+        secondsPassed++;
+        $('.time').text(secondsPassed);
+      }, 1000);
+    }
 
     let wi = $('.card').index($(this));
     let currentCard = cards[wi];
